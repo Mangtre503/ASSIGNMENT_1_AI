@@ -15,7 +15,13 @@ DIRS = {
 def parse_board(testcase):
     """
     Input: testcase filename
-    Output: H, W, walls, goals, frozenset(boxes), player
+    Output:
+        H: Num of rows
+        W: Num of columns
+        wall: List of wall
+        goals: List of goal
+        frozenset: List of box
+        player: Coordinate of people
     Symbols:
       '#': wall
       '.': target
@@ -149,11 +155,19 @@ def bfs(testcase):
 
     return None
 
+def build_solutions():
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    solutions_dir = os.path.join(current_dir, "solutions")
+    os.makedirs(solutions_dir, exist_ok=True)
+
+    for i in range(1, 21):
+        tc_file = f"mini_cosmos_{i}.txt"
+        
+        result_file_path = os.path.join(solutions_dir, f"testcase_{i}.txt")
+        
+        with open(result_file_path, "w") as file:
+            result = bfs(tc_file)  
+            file.write(result) 
 
 
-if __name__ == "__main__":
-    result = bfs("mini_cosmos_1.txt")
-    if result:
-        print(f"Solution: {result}")
-    else:
-        print("No solution found")
+build_solutions()
