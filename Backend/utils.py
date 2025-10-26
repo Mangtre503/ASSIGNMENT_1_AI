@@ -134,10 +134,6 @@ def compute_heuristic(boxes, goals):
         total_distance += min_dist
     return total_distance
 
-def conmpute_cost(g, boxes, goals):
-    ''' Compute f(n) = g(n) + h(n) '''
-    return g + compute_heuristic(boxes, goals)
-
 def build_solutions(func):
     """ Build solutions for testcases using the provided function: bfs or astar """
     current_dir = os.path.dirname(os.path.abspath(__file__))

@@ -1,7 +1,15 @@
 """Solve the sokoban problem using heuristic search (A* Search)"""
 
-from queue import PriorityQueue
+import heapq
 from .. import utils
+
+heuristic_cache = {}
+def compute_heuristic(boxes, goals):
+    key =tuple(sorted(boxes))
+    if key not in heuristic_cache:
+        heuristic_cache[key] = utils.compute_heuristic(boxes, goals)
+    return heuristic_cache[key]
+        
 
 def astar(testcase):
     '''
@@ -20,13 +28,13 @@ def astar(testcase):
     start = (player0, boxes0)
     parent = {start: (None, None)}  # state -> (prev_state, move_char)
     g_val={start:0} # keep track of g(n) values for each state
-    queue=PriorityQueue()
+    queue=[]
     g_start=0
-    f_start=utils.conmpute_cost(g_start, boxes0, goals)
-    queue.put((f_start, g_start, start)) # push the initial state into the priority queue with f(0)=h(0)
+    f_start=g_start+compute_heuristic(boxes0, goals)
+    heapq.heappush(queue, (f_start, g_start, start)) # push the initial state into the priority queue with f(0)=h(0)
     
-    while not queue.empty():
-        _, g_current, state_current = queue.get() # get the state with the lowest f and remove it from the queue
+    while not queue:
+        _, g_current, state_current = heapq.heappop(queue) # get the state with the lowest f and remove it from the queue
         if g_current>g_val[state_current]:
             continue # if this state has a higher f(n) value than the one in the open list, skip it
         # If the current state is the goal state
@@ -47,9 +55,6 @@ def astar(testcase):
                 g_val[state_neighbor]=g_neighbor
                 parent[state_neighbor]=(state_current, move_char)
             _, boxes_neighbor = state_neighbor
-            f_neighbor=utils.conmpute_cost(g_neighbor, boxes_neighbor, goals)
-            
-            queue.put((f_neighbor, g_neighbor, state_neighbor)) # push the next state into the priority queue with f(n)=g(n)+h(n)
+            f_neighbor=g_neighbor+compute_heuristic(boxes_neighbor, goals)
+            heapq.heappush(queue, (f_neighbor, g_neighbor, state_neighbor)) # push the next state into the priority queue with f(n)=g(n)+h(n)
     return None
-
-utils.build_solutions(astar)

@@ -168,6 +168,3 @@ def build_solutions():
         with open(result_file_path, "w") as file:
             result = bfs(tc_file)  
             file.write(result) 
-
-
-build_solutions()
