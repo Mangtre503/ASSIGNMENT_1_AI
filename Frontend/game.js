@@ -1,0 +1,15 @@
+const app = document.getElementById("app");
+
+function showMenu() {
+  const menu = new MenuScreen((level) => loadLevel(level));
+  menu.render(app);
+}
+async function loadLevel(level) {
+  const res = await fetch(`../SokobanMap/mini_cosmos_${level}.txt`);
+  const mapData = JSON.parse(await res.text());
+
+  const game = new GameScreen(mapData, level, () => showMenu());
+  game.render(app);
+}
+
+showMenu();

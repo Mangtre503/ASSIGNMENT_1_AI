@@ -1,0 +1,81 @@
+body {
+  background: #2a0142;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+#gameCanvas {
+  border: 3px solid #ff4081;
+  background: #222;
+  display: block;
+  margin: 0 auto;
+}
+
+canvas {
+  background: #fff;
+  border: 3px solid #ff4081;
+  border-radius: 10px;
+}
+.levelSelect {
+  text-align: center;
+  color: #ffecf2;
+  font-family: sans-serif;
+}
+
+h1 {
+  color: #ff6384;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.levels-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 80px);
+  gap: 15px;
+  justify-content: center;
+}
+
+.level-button {
+  background: #ff3e6c;
+  border: 3px solid #ff93a6;
+  border-radius: 12px;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 26px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.level-button:hover {
+  background: #ff6b89;
+  transform: scale(1.05);
+}
+
+#btnBack,
+#algorithmSelect,
+#btnLoadSolution,
+#btnPrev,
+#btnNext {
+  background: #ff3e6c;
+  border: 3px solid #ff93a6;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 26px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+}
+.control-panel {
+  margin: 10px 0;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
