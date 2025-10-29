@@ -46,6 +46,7 @@ class GameScreen {
   }
 
   render(container) {
+    this.ontainer = container;
     container.innerHTML = `
       <button id="btnBack">BACK</button>
 
@@ -57,6 +58,7 @@ class GameScreen {
         <button id="btnLoadSolution">Load Solution</button>
         <button id="btnPrev" disabled>&lt;</button>
         <button id="btnNext" disabled>&gt;</button>
+        <p>Ver 1</p>
       </div>
 
       <canvas id="gameCanvas"></canvas>
