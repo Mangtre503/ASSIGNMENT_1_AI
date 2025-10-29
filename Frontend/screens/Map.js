@@ -108,8 +108,7 @@ class GameScreen {
 
       this.map = JSON.parse(JSON.stringify(this.originalMap));
       this.history = [];
-      this.findPlayer();
-      this.draw();
+      this.render();
     } catch (err) {
       console.error(err);
       alert("Không tải được solution!");
