@@ -55,10 +55,9 @@ class GameScreen {
           <option value="BlindSearch">Blind Search</option>
           <option value="Heuristic">Heuristic</option>
         </select>
-        <button id="btnLoadSolution">Load Solution</button>
+        <button id="btnLoadSolution">Load Solutions</button>
         <button id="btnPrev" disabled>&lt;</button>
         <button id="btnNext" disabled>&gt;</button>
-        <p>Ver 1</p>
       </div>
 
       <canvas id="gameCanvas"></canvas>
