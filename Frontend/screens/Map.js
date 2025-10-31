@@ -15,13 +15,13 @@ class GameScreen {
 
   async loadImages() {
     const imagePaths = {
-      "#": "./Frontend/Images/assets/WallRound_Black.png", // tường
-      ".": "./Frontend/Images/assets/EndPoint_Yellow.png", // đích
-      $: "./Frontend/Images/assets/CrateDark_Red.png", // thùng
-      "*": "./Frontend/Images/assets/Crate_Yellow.png", // thùng ở đích
-      " ": "./Frontend/Images/assets/GroundGravel_Concrete.png", // sàn
-      "@": "./Frontend/Images/assets/Character4.png", // player
-      "+": "./Frontend/Images/assets/Character4.png", // play on goal
+      "#": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/WallRound_Black.png`, // tường
+      ".": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/EndPoint_Yellow.png`, // đích
+      $: `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/CrateDark_Red.png`, // thùng
+      "*": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Crate_Yellow.png`, // thùng ở đích
+      " ": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/GroundGravel_Concrete.png`, // sàn
+      "@": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Character4.png`, // player
+      "+": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Character4.png`, // play on goal
     };
 
     const loadImage = (src) =>
@@ -116,7 +116,7 @@ class GameScreen {
   }
   async loadSolution() {
     const algo = document.getElementById("algorithmSelect").value;
-    const path = `${window.location.origin}/Backend/${algo}/solutions/testcase_${this.level}.txt`;
+    const path = `${window.location.origin}/ASSIGNMENT_1_AI/Backend/${algo}/solutions/testcase_${this.level}.txt`;
     try {
       const res = await fetch(path);
       const text = await res.text();
