@@ -105,6 +105,10 @@ class GameScreen {
       document.getElementById("btnPrev").disabled = false;
 
       alert("Loaded solution successfully!");
+      this.map = JSON.parse(JSON.stringify(this.originalMap));
+      this.history = [];
+      this.findPlayer();
+      this.draw();
     } catch (err) {
       console.error(err);
       alert("Không tải được solution!");

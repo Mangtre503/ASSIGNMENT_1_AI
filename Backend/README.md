@@ -1,8 +1,12 @@
 ### How to run
+
     ../ASSIGNMENT_1_AI> python -m Backend.index
+    python3 -m Backend.chartMt to get png Memory Comparision
+    python3 -m Backend.chartEt to get png Execution Time Comparision
 
 ### Result returned
-    input: 
+
+    input:
         solution('blind_search', 'mini_cosmos_1.txt') (for bfs)
         solution('heuristic', 'mini_cosmos_1.txt') (for astar)
     output:
