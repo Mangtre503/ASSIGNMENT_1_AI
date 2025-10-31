@@ -182,28 +182,32 @@ class GameScreen {
     const nc = this.player.c + dir[1];
 
     const target = this.map[nr][nc];
-
     if (target === "#") return;
-
     const behindR = nr + dir[0];
     const behindC = nc + dir[1];
-
     if (target === "$" || target === "*") {
       const nextTarget = this.map[behindR][behindC];
       if (nextTarget === "#" || nextTarget === "$" || nextTarget === "*") {
         return;
       }
 
+      const isGoalNext =
+        (this.originalMap[behindR][behindC] === ".") |
+        (this.originalMap[behindR][behindC] === "*");
       const boxOnGoalOld = target === "*";
-      const isGoalNext = this.originalMap[behindR][behindC] === ".";
+
+      this.map[nr][nc] = this.originalMap[nr][nc];
 
       this.map[behindR][behindC] = isGoalNext ? "*" : "$";
     }
 
-    const wasGoal = this.originalMap[this.player.r][this.player.c] === ".";
+    const wasGoal =
+      (this.originalMap[this.player.r][this.player.c] === ".") |
+      (this.originalMap[this.player.r][this.player.c] === "*");
     this.map[this.player.r][this.player.c] = wasGoal ? "." : " ";
 
-    const isGoalStep = this.originalMap[nr][nc] === ".";
+    const isGoalStep =
+      this.originalMap[nr][nc] === "." || this.originalMap[nr][nc] === "*";
     this.map[nr][nc] = isGoalStep ? "+" : "@";
 
     this.player = { r: nr, c: nc };
