@@ -31,7 +31,7 @@ def parse_board(testcase):
       '+': player on target
       ' ': free space
     """
-    os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+    os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     file_path = os.path.join('SokobanMap', testcase)
     with open(file_path, 'r') as f:
         board = ast.literal_eval(f.read())  
@@ -162,7 +162,7 @@ def build_solutions():
     for i in range(1, 21):
         tc_file = f"mini_cosmos_{i}.txt"
         
-        result_file_path = os.path.join(solutions_dir, f"testcase_{i}.txt")
+        result_file_path = os.path.join(solutions_dir, f"blindSearch_testcase_{i}.txt")
         
         with open(result_file_path, "w") as file:
             result = bfs(tc_file)  
