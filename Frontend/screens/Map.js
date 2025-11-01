@@ -14,16 +14,27 @@ class GameScreen {
   }
 
   async loadImages() {
-    const imagePaths = {
-      "#": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/WallRound_Black.png`, // tường
-      ".": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/EndPoint_Yellow.png`, // đích
-      $: `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/CrateDark_Red.png`, // thùng
-      "*": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Crate_Yellow.png`, // thùng ở đích
-      " ": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/GroundGravel_Concrete.png`, // sàn
-      "@": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Character4.png`, // player
-      "+": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Character4.png`, // play on goal
-    };
+    // window
+    // const imagePaths = {
+    //   "#": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/WallRound_Black.png`, // tường
+    //   ".": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/EndPoint_Yellow.png`, // đích
+    //   $: `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/CrateDark_Red.png`, // thùng
+    //   "*": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Crate_Yellow.png`, // thùng ở đích
+    //   " ": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/GroundGravel_Concrete.png`, // sàn
+    //   "@": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Character4.png`, // player
+    //   "+": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Character4.png`, // play on goal
+    // };
 
+    // Linux
+    const imagePaths = {
+      "#": `${window.location.origin}/Frontend/Images/assets/WallRound_Black.png`, // tường
+      ".": `${window.location.origin}/Frontend/Images/assets/EndPoint_Yellow.png`, // đích
+      $: `${window.location.origin}/Frontend/Images/assets/CrateDark_Red.png`, // thùng
+      "*": `${window.location.origin}/Frontend/Images/assets/Crate_Yellow.png`, // thùng ở đích
+      " ": `${window.location.origin}/Frontend/Images/assets/GroundGravel_Concrete.png`, // sàn
+      "@": `${window.location.origin}/Frontend/Images/assets/Character4.png`, // player
+      "+": `${window.location.origin}/Frontend/Images/assets/Character4.png`, // play on goal
+    };
     const loadImage = (src) =>
       new Promise((resolve) => {
         const img = new Image();
@@ -116,9 +127,19 @@ class GameScreen {
   }
   async loadSolution() {
     const algo = document.getElementById("algorithmSelect").value;
-    const path = `${window.location.origin}/ASSIGNMENT_1_AI/Backend/${algo}/solutions/testcase_${this.level}.txt`;
+    // window
+    // const path = `${window.location.origin}/ASSIGNMENT_1_AI/Backend/${algo}/solutions/${value}_testcase_${this.level}.txt`;
+    //linux
+    const path = `${window.location.origin}/Backend/solutions/${algo}_testcase_${this.level}.txt`;
+
     try {
       const res = await fetch(path);
+      if (!res.ok) {
+        throw new Error(
+          `Không tìm thấy file solution, vui lòng chạy Backend/index để lưu kết quả trước khi thử nghiệm`
+        );
+      }
+
       const text = await res.text();
 
       this.solution = text.trim().replace(";", "");
@@ -130,14 +151,15 @@ class GameScreen {
       document.getElementById("btnPrev").disabled = false;
 
       alert("Tải solution thành công!");
-
       this.map = JSON.parse(JSON.stringify(this.originalMap));
       this.history = [];
       this.findPlayer();
       this.draw();
     } catch (err) {
       console.error(err);
-      alert("Không tải được solution!");
+      alert(
+        "Không tìm thấy file solution, vui lòng chạy Backend/index để lưu kết quả trước khi thử nghiệm"
+      );
     }
   }
   nextMove() {
