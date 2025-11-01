@@ -8,53 +8,90 @@ class GameScreen {
     this.originalMap = JSON.parse(JSON.stringify(mapData));
     this.map = JSON.parse(JSON.stringify(mapData));
     this.history = [];
+
+    this.tileSize = 70;
+    this.loadImages().then(() => this.draw());
   }
+
+  async loadImages() {
+    // window
+    // const imagePaths = {
+    //   "#": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/WallRound_Black.png`, // tường
+    //   ".": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/EndPoint_Yellow.png`, // đích
+    //   $: `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/CrateDark_Red.png`, // thùng
+    //   "*": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Crate_Yellow.png`, // thùng ở đích
+    //   " ": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/GroundGravel_Concrete.png`, // sàn
+    //   "@": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Character4.png`, // player
+    //   "+": `${window.location.origin}/ASSIGNMENT_1_AI/Frontend/Images/assets/Character4.png`, // play on goal
+    // };
+
+    // Linux
+    const imagePaths = {
+      "#": `${window.location.origin}/Frontend/Images/assets/WallRound_Black.png`, // tường
+      ".": `${window.location.origin}/Frontend/Images/assets/EndPoint_Yellow.png`, // đích
+      $: `${window.location.origin}/Frontend/Images/assets/CrateDark_Red.png`, // thùng
+      "*": `${window.location.origin}/Frontend/Images/assets/Crate_Yellow.png`, // thùng ở đích
+      " ": `${window.location.origin}/Frontend/Images/assets/GroundGravel_Concrete.png`, // sàn
+      "@": `${window.location.origin}/Frontend/Images/assets/Character4.png`, // player
+      "+": `${window.location.origin}/Frontend/Images/assets/Character4.png`, // play on goal
+    };
+    const loadImage = (src) =>
+      new Promise((resolve) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => resolve(img);
+      });
+
+    this.images = {};
+    for (const [key, path] of Object.entries(imagePaths)) {
+      this.images[key] = await loadImage(path);
+    }
+  }
+
   draw() {
-    if (!this.ctx) return;
+    if (!this.ctx || !this.images[" "]) return;
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     for (let r = 0; r < this.map.length; r++) {
       for (let c = 0; c < this.map[r].length; c++) {
         const tile = this.map[r][c];
-        let color = "#ddd"; // default floor
+        const floor = this.images[" "]; // nền mặc định
+        const img = this.images[tile] || floor;
 
-        if (tile === "#") color = "black"; // wall
-        if (tile === ".") color = "yellow"; // goal
-        if (tile === "$") color = "brown"; // box
-        if (tile === "*") color = "orange"; // box on goal
-        if (tile === "@") color = "blue"; // player
-        if (tile === "+") color = "lightblue"; // player on goal
-
-        this.ctx.fillStyle = color;
-        this.ctx.fillRect(
+        // Vẽ nền trước
+        this.ctx.drawImage(
+          floor,
           c * this.tileSize,
           r * this.tileSize,
           this.tileSize,
           this.tileSize
         );
 
-        this.ctx.strokeStyle = "gray";
-        this.ctx.strokeRect(
-          c * this.tileSize,
-          r * this.tileSize,
-          this.tileSize,
-          this.tileSize
-        );
+        // Vẽ vật thể (nếu không phải nền trống)
+        if (tile !== " ") {
+          this.ctx.drawImage(
+            img,
+            c * this.tileSize,
+            r * this.tileSize,
+            this.tileSize,
+            this.tileSize
+          );
+        }
       }
     }
   }
 
   render(container) {
+    this.container = container;
     container.innerHTML = `
-      <button id="btnBack">BACK</button>
-
       <div class="control-panel">
+        <button id="btnBack">BACK</button>
         <select id="algorithmSelect">
           <option value="BlindSearch">Blind Search</option>
           <option value="Heuristic">Heuristic</option>
         </select>
-        <button id="btnLoadSolution">Load Solution</button>
+        <button id="btnLoadSolution">Load Solutions Before Start</button>
         <button id="btnPrev" disabled>&lt;</button>
         <button id="btnNext" disabled>&gt;</button>
       </div>
@@ -80,11 +117,10 @@ class GameScreen {
 
     this.canvas = document.getElementById("gameCanvas");
     this.ctx = this.canvas.getContext("2d");
-    this.tileSize = 50;
-    this.tileSize = 50;
+    this.tileSize = 70;
 
-    this.canvas.width = this.map[0].length * this.tileSize; // số cột
-    this.canvas.height = this.map.length * this.tileSize; // số hàng
+    this.canvas.width = this.map[0].length * this.tileSize;
+    this.canvas.height = this.map.length * this.tileSize;
 
     this.draw();
     this.findPlayer();
@@ -94,9 +130,16 @@ class GameScreen {
     // window
     // const path = `${window.location.origin}/ASSIGNMENT_1_AI/Backend/${algo}/solutions/${value}_testcase_${this.level}.txt`;
     //linux
-    const path = `${window.location.origin}/Backend/${algo}/solutions/${value}_testcase_${this.level}.txt`;
+    const path = `${window.location.origin}/Backend/solutions/${algo}_testcase_${this.level}.txt`;
+
     try {
       const res = await fetch(path);
+      if (!res.ok) {
+        throw new Error(
+          `Không tìm thấy file solution, vui lòng lưu kết quả vào Backend/solutions trước khi thử nghiệm`
+        );
+      }
+
       const text = await res.text();
 
       this.solution = text.trim().replace(";", "");
@@ -107,7 +150,8 @@ class GameScreen {
       document.getElementById("btnNext").disabled = false;
       document.getElementById("btnPrev").disabled = false;
 
-      alert("Loaded solution successfully!");
+      alert("Tải solution thành công!");
+
       this.map = JSON.parse(JSON.stringify(this.originalMap));
       this.history = [];
       this.findPlayer();
@@ -126,6 +170,8 @@ class GameScreen {
 
       this.moveIndex++;
       this.makeMove(this.solution[this.moveIndex]);
+    } else {
+      alert("Giải hết! Quay lại menu để chọn level mới!");
     }
   }
 
@@ -157,28 +203,32 @@ class GameScreen {
     const nc = this.player.c + dir[1];
 
     const target = this.map[nr][nc];
-
     if (target === "#") return;
-
     const behindR = nr + dir[0];
     const behindC = nc + dir[1];
-
     if (target === "$" || target === "*") {
       const nextTarget = this.map[behindR][behindC];
       if (nextTarget === "#" || nextTarget === "$" || nextTarget === "*") {
         return;
       }
 
+      const isGoalNext =
+        (this.originalMap[behindR][behindC] === ".") |
+        (this.originalMap[behindR][behindC] === "*");
       const boxOnGoalOld = target === "*";
-      const isGoalNext = this.originalMap[behindR][behindC] === ".";
+
+      this.map[nr][nc] = this.originalMap[nr][nc];
 
       this.map[behindR][behindC] = isGoalNext ? "*" : "$";
     }
 
-    const wasGoal = this.originalMap[this.player.r][this.player.c] === ".";
+    const wasGoal =
+      (this.originalMap[this.player.r][this.player.c] === ".") |
+      (this.originalMap[this.player.r][this.player.c] === "*");
     this.map[this.player.r][this.player.c] = wasGoal ? "." : " ";
 
-    const isGoalStep = this.originalMap[nr][nc] === ".";
+    const isGoalStep =
+      this.originalMap[nr][nc] === "." || this.originalMap[nr][nc] === "*";
     this.map[nr][nc] = isGoalStep ? "+" : "@";
 
     this.player = { r: nr, c: nc };
