@@ -70,5 +70,4 @@ Trong trường hợp đó, cần sửa lại **3 vị trí** sau:
 ## Backend:
 
     Xem ASSIGNMENT_1_AI\Backend\index.py <br>
-    Xem ASSIGNMENT_1_AI\Backend\Evaluate\index.py cho các hàm đánh giá về time, memory <br>
-    Xen ASSIGNMENT_1_AI\Backend\Heuristic\index.py cho hàm heuristic <br>
+    Xem giải thuật ASSIGNMENT_1_AI\Backend\algorithm.py <br>
