@@ -151,7 +151,6 @@ class GameScreen {
       document.getElementById("btnPrev").disabled = false;
 
       alert("Tải solution thành công!");
-
       this.map = JSON.parse(JSON.stringify(this.originalMap));
       this.history = [];
       this.findPlayer();
