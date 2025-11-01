@@ -27,12 +27,13 @@ def astar(testcase):
         return ""
     start = (player0, boxes0)
     parent = {start: (None, None)}  # state -> (prev_state, move_char)
-    g_val={start:0} # keep track of g(n) values for each state
-    queue=[]
-    g_start=0
-    f_start=g_start+compute_heuristic(boxes0, goals)
-    heapq.heappush(queue, (f_start, g_start, start)) # push the initial state into the priority queue with f(0)=h(0)
-    
+    g_val = {start: 0}            
+    closed = set()                  # avoid re-expanding same state
+    queue = []
+
+    f_start = compute_heuristic(boxes0, goals)
+    heapq.heappush(queue, (f_start, 0, start))  # (f, g, state)
+
     while queue:
         _, g_current, state_current = heapq.heappop(queue) # get the state with the lowest f and remove it from the queue
         if g_current>g_val[state_current]:
@@ -48,13 +49,15 @@ def astar(testcase):
                 path_moves.append(ch)
                 s = prev
             return "".join(reversed(path_moves))
-        # second, get all next possible states
+
         for state_neighbor, move_char in utils.neighbors(state_current, walls, h, w):
-            g_neighbor=g_current+1 # cost from current state to the neighbor state
-            if state_neighbor not in g_val or g_neighbor<g_val[state_neighbor]:
-                g_val[state_neighbor]=g_neighbor
-                parent[state_neighbor]=(state_current, move_char)
-            _, boxes_neighbor = state_neighbor
-            f_neighbor=g_neighbor+compute_heuristic(boxes_neighbor, goals)
-            heapq.heappush(queue, (f_neighbor, g_neighbor, state_neighbor)) # push the next state into the priority queue with f(n)=g(n)+h(n)
+            g_neighbor = g_current + 1
+            if state_neighbor not in g_val or g_neighbor < g_val[state_neighbor]:
+                g_val[state_neighbor] = g_neighbor
+                parent[state_neighbor] = (state_current, move_char)
+
+                _, boxes_neighbor = state_neighbor
+                f_neighbor = g_neighbor + compute_heuristic(boxes_neighbor, goals)
+                heapq.heappush(queue, (f_neighbor, g_neighbor, state_neighbor))
+
     return None

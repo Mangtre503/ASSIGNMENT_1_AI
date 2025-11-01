@@ -116,23 +116,36 @@ prioritiy queue sử dụng hàm đánh giá f(n) = g(n) + h(n)
     - h(n): hàm heuristic ước lượng chi phí từ trạng thái n đến trạng thái mục tiêu
 '''
 def compute_heuristic(boxes, goals):
-    '''
-    Heuristic function: sum of Manhattan distances from each goal to the nearest box which has not been computed yet
-    '''
+    """
+    Heuristic: sum of Manhattan distances from each box to the nearest unmatched goal.
+    """
     total_distance = 0
-    goals_copy = list(goals.copy())
+    unused_goals = set(goals)
 
     for box in boxes:
-        min_dist = float('inf')
-        nearest_goal = goals_copy[0]
-        for goal in goals_copy:
-            dist = abs(box[0] - goal[0]) + abs(box[1] - goal[1])
-            if dist < min_dist:
-                min_dist = dist
-                nearest_goal = goal
-        goals_copy.remove(nearest_goal)
-        total_distance += min_dist
+        nearest_goal = min(unused_goals, key=lambda g: abs(box[0]-g[0]) + abs(box[1]-g[1]))
+        dist = abs(box[0] - nearest_goal[0]) + abs(box[1] - nearest_goal[1])
+        total_distance += dist
+        unused_goals.remove(nearest_goal)
+
     return total_distance
+
+# def compute_heuristic(boxes, goals):
+#     """
+#     Approximate heuristic: sum of Manhattan distances from each box
+#     to the closest goal (ignoring whether goal is already matched).
+#     Faster but may overestimate slightly if multiple boxes share the same goal.
+#     """
+#     total_distance = 0
+
+#     for box in boxes:
+#         # Chọn khoảng cách nhỏ nhất từ box tới tất cả các goals
+#         nearest_dist = min(abs(box[0]-g[0]) + abs(box[1]-g[1]) for g in goals)
+#         total_distance += nearest_dist
+
+#     return total_distance
+
+
 
 def build_solutions(func):
     """ Build solutions for testcases using the provided function: bfs or astar """

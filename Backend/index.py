@@ -31,6 +31,7 @@ def solution(algorithm, testcase):
     memory_usage = peak /1024  # in KB
     
     print(f"Algorithm: {algorithm}")
+    print(f'solution: {solution}')
     print(f'Runtime: {runtime:.4f} seconds')
     print(f'Peak Memory Usage: {memory_usage:.2f} KB')
     return solution, runtime, memory_usage
@@ -52,7 +53,12 @@ def solution(algorithm, testcase):
 
 
 if __name__ == "__main__":
-    print(solution('blind_search', 'mini_cosmos_1.txt'))
+    for i in range(1, 22):
+        print(f"Test case {i}")
+        print(solution('blind_search', f'mini_cosmos_{i}.txt'))
+        print(solution('heuristic', f'mini_cosmos_{i}.txt'))
+        print('-' * 40)
+    # print(solution('blind_search', 'mini_cosmos_1.txt'))
     # print(solution('blind_search', 'mini_cosmos_2.txt'))
     # print(solution('blind_search', 'mini_cosmos_3.txt'))
     # print(solution('blind_search', 'mini_cosmos_4.txt'))
@@ -72,10 +78,12 @@ if __name__ == "__main__":
     # print(solution('blind_search', 'mini_cosmos_18.txt'))
     # print(solution('blind_search', 'mini_cosmos_19.txt'))
     # print(solution('blind_search', 'mini_cosmos_20.txt'))
+    # print(solution('blind_search', 'mini_cosmos_21.txt'))
 
 
 
-    print(solution('heuristic', 'mini_cosmos_1.txt'))
+
+    # print(solution('heuristic', 'mini_cosmos_1.txt'))
     # print(solution('heuristic', 'mini_cosmos_2.txt'))
     # print(solution('heuristic', 'mini_cosmos_3.txt'))
     # print(solution('heuristic', 'mini_cosmos_4.txt'))
@@ -102,6 +110,8 @@ if __name__ == "__main__":
     # solution('heuristic', 'mini_cosmos_3.txt')
     # solution('blind_search', 'mini_cosmos_4.txt')
     # solution('heuristic', 'mini_cosmos_4.txt')
+    # print(solution('heuristic', 'mini_cosmos_21.txt'))
+
 
 
 #     runtimesB = [
