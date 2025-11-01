@@ -136,7 +136,7 @@ class GameScreen {
       const res = await fetch(path);
       if (!res.ok) {
         throw new Error(
-          `Không tìm thấy file solution, vui lòng lưu kết quả vào Backend/solutions trước khi thử nghiệm`
+          `Không tìm thấy file solution, vui lòng chạy Backend/index để lưu kết quả trước khi thử nghiệm`
         );
       }
 
@@ -157,7 +157,9 @@ class GameScreen {
       this.draw();
     } catch (err) {
       console.error(err);
-      alert("Không tải được solution!");
+      alert(
+        "Không tìm thấy file solution, vui lòng chạy Backend/index để lưu kết quả trước khi thử nghiệm"
+      );
     }
   }
   nextMove() {
