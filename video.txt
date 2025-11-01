@@ -1,0 +1,4 @@
+1. Link drive Video Present: https://drive.google.com/drive/folders/1PUwoPfmbKTO1cjuynuZImnj1w3V7ewVp?usp=sharing
+2. File giải thuật: Backend/algorithm.py
+3. Demo nếu không run được frontend: https://mangtre503.github.io/ASSIGNMENT_1_AI/
+4. Frontend: chi tiết README.md 
