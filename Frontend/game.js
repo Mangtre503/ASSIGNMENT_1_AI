@@ -5,13 +5,13 @@ function showMenu() {
   menu.render(app);
 }
 async function loadLevel(level) {
-  // const res = await fetch(
-  //   `${window.location.origin}/ASSIGNMENT_1_AI/SokobanMap/mini_cosmos_${level}.txt`
-  // );
-  // Linux
   const res = await fetch(
-    `${window.location.origin}/SokobanMap/mini_cosmos_${level}.txt`
+    `${window.location.origin}/ASSIGNMENT_1_AI/SokobanMap/mini_cosmos_${level}.txt`
   );
+  // Linux
+  // const res = await fetch(
+  //   `${window.location.origin}/SokobanMap/mini_cosmos_${level}.txt`
+  // );
   const mapData = JSON.parse(await res.text());
 
   const game = new GameScreen(mapData, level, () => showMenu());

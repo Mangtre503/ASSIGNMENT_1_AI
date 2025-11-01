@@ -55,12 +55,12 @@ Mở **Live Server** với file `index.html` để xem lời giải đã lưu (d
 ### ⚠️ Lưu ý:
 
 Đường dẫn có thể khác nhau giữa các thiết bị hoặc trình duyệt, gây lỗi **không đọc được file**.  
-Trong trường hợp đó, cần sửa lại **3 vị trí** sau:
+Trong trường hợp đó, cần sửa lại **3 vị trí tương đối** sau:
 
-1. **`Frontend/game.js`** dòng **8** → sửa đường dẫn của `res`.
+1. **`Frontend/game.js`** khoảng dòng **8** → sửa đường dẫn của `res`.
 2. **`Frontend/screens/Map.js`**:
-   - Dòng **17**: sửa `imagePaths`.
-   - Dòng **129**: sửa `path`.
+   - Khoảng dòng **17**: sửa `imagePaths`.
+   - Khoảng dòng **129**: sửa `path`.
 
 👉 Hoặc xem trực tiếp bản deploy tại:  
 🔗 [https://mangtre503.github.io/ASSIGNMENT_1_AI/](https://mangtre503.github.io/ASSIGNMENT_1_AI/)
