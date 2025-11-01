@@ -30,10 +30,10 @@ def solution(algorithm, testcase):
     runtime = end_time - start_time
     memory_usage = peak /1024  # in KB
     
-    # print(f"Algorithm: {algorithm}")
-    # print(f'Runtime: {runtime:.4f} seconds')
+    print(f"Algorithm: {algorithm}")
+    print(f'Runtime: {runtime:.4f} seconds')
     print(f'Peak Memory Usage: {memory_usage:.2f} KB')
-    # return solution, runtime, memory_usage
+    return solution, runtime, memory_usage
           
 
 # def estimate(algorithm, testcase):
@@ -53,29 +53,29 @@ def solution(algorithm, testcase):
 
 if __name__ == "__main__":
     print(solution('blind_search', 'mini_cosmos_1.txt'))
-    print(solution('blind_search', 'mini_cosmos_2.txt'))
-    print(solution('blind_search', 'mini_cosmos_3.txt'))
-    print(solution('blind_search', 'mini_cosmos_4.txt'))
-    print(solution('blind_search', 'mini_cosmos_5.txt'))
-    print(solution('blind_search', 'mini_cosmos_6.txt'))
-    print(solution('blind_search', 'mini_cosmos_7.txt'))
-    print(solution('blind_search', 'mini_cosmos_8.txt'))
-    print(solution('blind_search', 'mini_cosmos_9.txt'))
-    print(solution('blind_search', 'mini_cosmos_10.txt'))
-    print(solution('blind_search', 'mini_cosmos_11.txt'))
-    print(solution('blind_search', 'mini_cosmos_12.txt'))
-    print(solution('blind_search', 'mini_cosmos_13.txt'))
-    print(solution('blind_search', 'mini_cosmos_14.txt'))
-    print(solution('blind_search', 'mini_cosmos_15.txt'))
-    print(solution('blind_search', 'mini_cosmos_16.txt'))
-    print(solution('blind_search', 'mini_cosmos_17.txt'))
-    print(solution('blind_search', 'mini_cosmos_18.txt'))
-    print(solution('blind_search', 'mini_cosmos_19.txt'))
-    print(solution('blind_search', 'mini_cosmos_20.txt'))
+    # print(solution('blind_search', 'mini_cosmos_2.txt'))
+    # print(solution('blind_search', 'mini_cosmos_3.txt'))
+    # print(solution('blind_search', 'mini_cosmos_4.txt'))
+    # print(solution('blind_search', 'mini_cosmos_5.txt'))
+    # print(solution('blind_search', 'mini_cosmos_6.txt'))
+    # print(solution('blind_search', 'mini_cosmos_7.txt'))
+    # print(solution('blind_search', 'mini_cosmos_8.txt'))
+    # print(solution('blind_search', 'mini_cosmos_9.txt'))
+    # print(solution('blind_search', 'mini_cosmos_10.txt'))
+    # print(solution('blind_search', 'mini_cosmos_11.txt'))
+    # print(solution('blind_search', 'mini_cosmos_12.txt'))
+    # print(solution('blind_search', 'mini_cosmos_13.txt'))
+    # print(solution('blind_search', 'mini_cosmos_14.txt'))
+    # print(solution('blind_search', 'mini_cosmos_15.txt'))
+    # print(solution('blind_search', 'mini_cosmos_16.txt'))
+    # print(solution('blind_search', 'mini_cosmos_17.txt'))
+    # print(solution('blind_search', 'mini_cosmos_18.txt'))
+    # print(solution('blind_search', 'mini_cosmos_19.txt'))
+    # print(solution('blind_search', 'mini_cosmos_20.txt'))
 
 
 
-    # print(solution('heuristic', 'mini_cosmos_1.txt'))
+    print(solution('heuristic', 'mini_cosmos_1.txt'))
     # print(solution('heuristic', 'mini_cosmos_2.txt'))
     # print(solution('heuristic', 'mini_cosmos_3.txt'))
     # print(solution('heuristic', 'mini_cosmos_4.txt'))

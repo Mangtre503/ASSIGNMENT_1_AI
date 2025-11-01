@@ -33,7 +33,7 @@ def astar(testcase):
     f_start=g_start+compute_heuristic(boxes0, goals)
     heapq.heappush(queue, (f_start, g_start, start)) # push the initial state into the priority queue with f(0)=h(0)
     
-    while not queue:
+    while queue:
         _, g_current, state_current = heapq.heappop(queue) # get the state with the lowest f and remove it from the queue
         if g_current>g_val[state_current]:
             continue # if this state has a higher f(n) value than the one in the open list, skip it
