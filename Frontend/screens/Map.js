@@ -91,7 +91,10 @@ class GameScreen {
   }
   async loadSolution() {
     const algo = document.getElementById("algorithmSelect").value;
-    const path = `/Backend/solutions/${value}_testcase_${this.level}.txt`;
+    // window
+    // const path = `${window.location.origin}/ASSIGNMENT_1_AI/Backend/${algo}/solutions/${value}_testcase_${this.level}.txt`;
+    //linux
+    const path = `${window.location.origin}/Backend/${algo}/solutions/${value}_testcase_${this.level}.txt`;
     try {
       const res = await fetch(path);
       const text = await res.text();
