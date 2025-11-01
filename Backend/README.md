@@ -11,3 +11,16 @@
         solution('heuristic', 'mini_cosmos_1.txt') (for astar)
     output:
         'UULUURLDDRRURRUULLDDULLDDRRLDDRRUULUR', 0.001999378204345703, 125.0625 (list of steps, time (second), memory (KB))
+
+### Draw chart
+
+    cd Backend
+    python3 -m venv venv
+
+    source venv/bin/activate
+
+    pip3 install matplotlib
+
+    python3 -m chartEt
+
+    deactivate

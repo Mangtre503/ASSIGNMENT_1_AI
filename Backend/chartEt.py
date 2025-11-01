@@ -23,7 +23,7 @@ runtimesH_ms = [t * 1000 for t in runtimesH]
 test_cases = list(range(1, 21))
 
 # Plot
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(10, 10))
 plt.plot(test_cases, runtimesB_ms, marker='o', color='blue', label='Blind Search')
 plt.plot(test_cases, runtimesH_ms, marker='o', color='red', label='Heuristic')
 

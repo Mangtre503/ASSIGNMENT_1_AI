@@ -1,8 +1,9 @@
-from .BlindSearch.index import bfs
-from .Heuristic.index import astar
+from .algorithm import bfs
+from .algorithm import astar
 # from Evaluate.index import memory_count, time_count
 import time
 import tracemalloc
+import os
 
 
 def solution(algorithm, testcase):
@@ -15,12 +16,22 @@ def solution(algorithm, testcase):
         Output:
             solutions: the step by step solutions
     '''
+    try:
+        i = int(testcase.split("_")[-1].split(".")[0])  # mini_cosmos_1.txt -> 1
+    except ValueError:
+        raise ValueError(f"Invalid testcase name: {testcase}")
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    solutions_dir = os.path.join(current_dir, "solutions")
+    os.makedirs(solutions_dir, exist_ok=True)
+
     tracemalloc.start()
     start_time=time.time()
     if algorithm == "blind_search":
         solution = bfs(testcase)
+        result_filename = f"BlindSearch_testcase_{i}.txt"
     elif algorithm == "heuristic":
         solution = astar(testcase)
+        result_filename = f"Heuristic_testcase_{i}.txt"
     else:
         raise ValueError("Not known algorithm")
     end_time=time.time()
@@ -30,27 +41,15 @@ def solution(algorithm, testcase):
     runtime = end_time - start_time
     memory_usage = peak /1024  # in KB
     
-    print(f"Algorithm: {algorithm}")
-    print(f'solution: {solution}')
-    print(f'Runtime: {runtime:.4f} seconds')
-    print(f'Peak Memory Usage: {memory_usage:.2f} KB')
+    result_file_path = os.path.join(solutions_dir, result_filename)
+    with open(result_file_path, "w", encoding="utf-8") as f:
+        f.write(solution) 
+    print(f"✅ Algorithm: {algorithm}")
+    print(f"📄 Saved to: {result_file_path}")
+    print(f"⏱ Runtime: {runtime:.4f} seconds")
+    print(f"💾 Peak Memory: {memory_usage:.2f} KB")
     return solution, runtime, memory_usage
           
-
-# def estimate(algorithm, testcase):
-#     '''
-#         Final function to evaluate an algorithm in a specific testcase
-#         Input:
-#             algorithm: "blind_search" or "heuristic"
-#             testcase: The testcase file name
-#         Output: Tuple (memory_usage, time)
-#             memory_usage: Total memory use for computing 
-#             time_usage: Calculating time for a specific solution
-#     '''
-#     memory_usage = memory_count(algorithm, testcase)
-#     time_usage = time_count(algorithm, testcase)
-#     return (memory_usage, time_usage)
-
 
 if __name__ == "__main__":
     for i in range(1, 22):
@@ -113,49 +112,3 @@ if __name__ == "__main__":
     # print(solution('heuristic', 'mini_cosmos_21.txt'))
 
 
-
-#     runtimesB = [
-#     0.0061,
-#     0.0346,
-#     0.1534,
-#     0.0088,
-#     0.1521,
-#     1.0613,
-#     0.0789,
-#     0.3881,
-#     0.0395,
-#     0.1736,
-#     0.1169,
-#     0.8327,
-#     0.1565,
-#     1.0691,
-#     0.0948,
-#     0.3130,
-#     0.1451,
-#     1.3116,
-#     0.1485,
-#     1.1293
-# ]
-
-
-# runtimesH = [
-#     0.0018, 0.0015, 0.0014, 0.0015, 0.0014,
-#     0.0016, 0.0015, 0.0015, 0.0013, 0.0013,
-#     0.0015, 0.0015, 0.0015, 0.0018, 0.0014,
-#     0.0012, 0.0015, 0.0020, 0.0018, 0.0017
-# ]
-
-# peak_memory_usage = [
-#     83.45, 478.14, 1888.48, 92.10, 2161.00,
-#     14411.98, 950.85, 6745.23, 523.88, 2535.11,
-#     1879.47, 11197.77, 2105.74, 14960.06, 1587.27,
-#     4134.33, 2115.47, 16734.55, 2179.90, 15171.20
-# ]
-
-
-# peak_memory_usageH = [
-#     83.45, 83.52, 83.51, 92.17, 92.15,
-#     92.14, 92.14, 92.13, 83.45, 83.45,
-#     92.09, 92.08, 100.50, 100.49, 83.40,
-#     83.39, 101.22, 101.21, 92.04, 92.03
-# ]
